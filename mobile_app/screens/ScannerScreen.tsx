@@ -5,7 +5,7 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import Cam from '../components/Camera'
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function ScannerScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
       <Cam />
