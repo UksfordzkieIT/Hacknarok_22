@@ -4,10 +4,13 @@
 
 .sidenav {
   width: 200px;
-}
 
-.sidenav-content--dark {
-  background-color: #444444;
+  .sidenav__image-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 5px;
+  }
 }
 
 .sidenav .mat-toolbar {
