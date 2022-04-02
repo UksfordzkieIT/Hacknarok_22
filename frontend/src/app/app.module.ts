@@ -17,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ExampleChartComponent } from './components/example-chart/example-chart.component';
 import { DarkModeToggleComponent } from './components/dark-mode-toggle/dark-mode-toggle.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const CDK_MODULES = [LayoutModule];
 
@@ -43,6 +44,7 @@ const MATERIAL_MODULES = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     ...CDK_MODULES,
     ...MATERIAL_MODULES,
   ],
