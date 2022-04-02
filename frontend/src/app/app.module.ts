@@ -14,11 +14,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ExampleChartComponent } from './components/example-chart/example-chart.component';
+import { DarkModeToggleComponent } from './components/dark-mode-toggle/dark-mode-toggle.component';
 
 const CDK_MODULES = [LayoutModule];
 
 const MATERIAL_MODULES = [
+  MatButtonToggleModule,
   MatToolbarModule,
   MatButtonModule,
   MatSidenavModule,
@@ -30,7 +33,13 @@ const MATERIAL_MODULES = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, TestingComponent, DashboardComponent, ExampleChartComponent],
+  declarations: [
+    AppComponent,
+    TestingComponent,
+    DashboardComponent,
+    ExampleChartComponent,
+    DarkModeToggleComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

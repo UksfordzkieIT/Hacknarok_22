@@ -1,0 +1,10 @@
+<mat-button-toggle-group #group="matButtonToggleGroup"
+                         [value]="selectedVal"
+                         (change)="onValChange(group.value)">
+  <mat-button-toggle value="light" aria-label="Light">
+    Light
+  </mat-button-toggle>
+  <mat-button-toggle value="dark" aria-label="Dark">
+    Dark
+  </mat-button-toggle>
+</mat-button-toggle-group>

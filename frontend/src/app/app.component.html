@@ -10,8 +10,8 @@
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
+  <mat-sidenav-content [ngClass]="{'sidenav-content--dark': theme === 'dark'}" >
+    <mat-toolbar color="primary" class="toolbar">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -21,6 +21,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>frontend</span>
+      <app-dark-mode-toggle></app-dark-mode-toggle>
     </mat-toolbar>
     <app-dashboard></app-dashboard>
   </mat-sidenav-content>
