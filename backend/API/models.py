@@ -9,7 +9,7 @@ class User(models.Model):
     password_hash = models.CharField(max_length=30, null=True)
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
     allergies = models.JSONField(null=True)
-    card_number = models.IntegerField(null=True)
+    card_number = models.IntegerField(null=True) #12
 
 
 class Heatmap(models.Model):
@@ -53,6 +53,7 @@ class StatStore(models.Model):
 class StatFactory(models.Model):
     count = models.IntegerField()
     machine = models.ForeignKey(Machine, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(FactoryProduct, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(FactoryCategories, on_delete=models.SET_NULL, null=True)
     serial_num = models.IntegerField()
     date = models.DateTimeField(default=timezone.localtime)

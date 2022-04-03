@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from django.http import JsonResponse
@@ -84,6 +86,30 @@ class FactoryProductViewSet(viewsets.ModelViewSet):
 class MachineViewSet(viewsets.ModelViewSet):
     queryset = Machine.objects.all()
     serializer_class = MachineSerializer
+
+    @action(
+        methods=["get"],
+        detail=True,
+        url_path="get_machine_data",
+        url_name="get-machine-data",
+    )
+    def get_machine_data(self, request, pk):
+        machine = Machine.objects.get(id=pk)
+
+        work_time = datetime.now() - machine.start_date
+
+        product = StatFactory.objects.filter(Machine=pk).latest('product')
+        product = FactoryProduct.objects.get(id=product)
+
+        return JsonResponse(
+            {
+                "name": machine.name,
+                "product": product,
+                "production_start": machine.start_date,
+                "work_time": work_time,
+                "service_date": machine.service_date
+            },
+        )
 
 
 class StoreCategoriesViewSet(viewsets.ModelViewSet):
