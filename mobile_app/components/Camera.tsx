@@ -13,7 +13,7 @@ export default function Cam() {
   const [x, SetX] = useState(0);
   const [y, SetY] = useState(0);
   const [data, SetData] = useState(null);
-  const [a, SetB] = useState(null);
+  const [a, SetB] = useState(Object.values(api[0]));
   const [barcode, setBarcode] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -108,7 +108,6 @@ export default function Cam() {
             height: 200,
           }}
         >
-             
               <Text style={styles.text_style}>{a[0]}</Text>
               <Text style={styles.text_style}>{a[1]}</Text>
               <Text style={styles.text_style}>{a[2]}</Text>
