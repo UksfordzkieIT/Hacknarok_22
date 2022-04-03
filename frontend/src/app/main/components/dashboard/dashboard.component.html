@@ -16,13 +16,11 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-example-chart [for]="dashboardType" [dateRange]="dateRange" *ngIf="card.type === 'chart'; else heatmap"></app-example-chart>
+          <app-example-heatmap *ngIf="card.type === 'heatmap'"></app-example-heatmap>
+          <app-example-chart [for]="dashboardType" [dateRange]="dateRange" *ngIf="card.type === 'chart'"></app-example-chart>
+          <app-example-chart [for]="dashboardType" *ngIf="card.type === 'chart2'"></app-example-chart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
-
-<ng-template #heatmap>
-  <app-example-heatmap></app-example-heatmap>
-</ng-template>

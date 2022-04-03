@@ -51,7 +51,7 @@ export class DashboardComponent {
       if (this.dashboardType === 'fabryka') {
         return [
           { title: 'Wykres', cols: matches ? 2 : 1, rows: 1, type: 'chart' },
-          { title: 'Wykres 2', cols: matches ? 2 : 1, rows: 1, type: 'chart' },
+          { title: 'Wykres 2', cols: matches ? 2 : 1, rows: 1, type: 'chart2' },
         ];
       }
       if (this.dashboardType === 'sklep') {

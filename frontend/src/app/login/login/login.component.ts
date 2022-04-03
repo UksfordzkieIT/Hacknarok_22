@@ -22,7 +22,7 @@ export class LoginComponent {
   onSubmit(e: Event): void {
     e.preventDefault();
     e.stopPropagation();
-    if (this.login.value !== 'a' || this.password.value !== 'a') {
+    if (this.login.value !== 'hacknarok' || this.password.value !== '123') {
       this.invalid = true;
     } else {
       this.invalid = false;
