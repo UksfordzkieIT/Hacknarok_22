@@ -4,6 +4,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { EventBusService } from '../services/event-bus.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { StoreService } from '../services/store.service';
+import statStoreToChartData from '../converters/stat-store-data-to-chart-data';
 
 @Component({
   selector: 'app-main',
@@ -19,7 +21,8 @@ export class MainComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private eventBus: EventBusService,
-    private router: Router
+    private router: Router,
+    private storeService: StoreService
   ) {
     this.themeModeSubscription = eventBus.modeSubject$.subscribe((val) =>
       this.themeModeChanged(val)
@@ -29,6 +32,12 @@ export class MainComponent {
       .subscribe((val) => {
         const value = val as NavigationEnd;
         this.currentPath = value.urlAfterRedirects.split('/')[2].toUpperCase();
+      });
+    this.storeService
+      .getDataForChart()
+      .pipe(map((val) => statStoreToChartData(val)))
+      .subscribe((val) => {
+        console.log(val);
       });
   }
 

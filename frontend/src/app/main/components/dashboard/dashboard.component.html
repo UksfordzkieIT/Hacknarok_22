@@ -5,18 +5,24 @@
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
+            <ng-container *ngIf="card.type === 'chart'">
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
                 <app-date-range (dateRangeEvent)="mock($event)"></app-date-range>
-            </mat-menu>
+              </mat-menu>
+            </ng-container>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-example-chart></app-example-chart>
+          <app-example-chart [for]="dashboardType" *ngIf="card.type === 'chart'; else heatmap"></app-example-chart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
+
+<ng-template #heatmap>
+  <app-example-heatmap></app-example-heatmap>
+</ng-template>

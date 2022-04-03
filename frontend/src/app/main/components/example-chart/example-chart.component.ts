@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./example-chart.component.scss'],
 })
 export class ExampleChartComponent implements AfterViewInit, OnDestroy {
+  @Input('for') for!: 'fabryka' | 'sklep';
   @ViewChild('testChartCanvas') testChartCanvas!: ElementRef<HTMLCanvasElement>;
   themeModeChangedSubscription!: Subscription;
   canvasContext?: CanvasRenderingContext2D;
