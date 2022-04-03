@@ -4,10 +4,16 @@ import { ListItem } from 'react-native-elements';
 import { Text, View } from '../components/Themed';
 import {COLOURS} from '../constants/MyColours'
 
+import { scanned_f } from './api/last_food';
+import { scanned_m } from './api/last_machine';
+import { alergeny } from './api/alergeny';
+
 const qr = require('../assets/images/qr.png')
 
 export default function ProfileMenu(){
     const [isVisible, SetVi] = useState(false);
+    const [isVisible_b, SetVi_b] = useState(false);
+    const [isVisible_c, SetVi_c] = useState(false);
     const menu = [
         {
             title: "Moja karta",
@@ -18,7 +24,7 @@ export default function ProfileMenu(){
             icon: "camera"
         },
         {
-            title: "Ostatnie zakupy",
+            title: "Lista alergenów",
             icon: "shopping-cart"
         },
     ]
@@ -32,14 +38,43 @@ export default function ProfileMenu(){
                     <Button title="zamknij" color={COLOURS.main} onPress={()=>SetVi(false)}/>
                 </View>
             </Modal>
-                
+            <Modal visible={isVisible_b} transparent={true} animationType='slide'>
+                <View style={styles.modal}>
+                    <Text style={styles.label_dark}>Ostatnio skanowane</Text>
+                    {scanned_f.map((elem)=> {
+                        return(
+                        <View style={styles.container}>
+                            <Text>{elem.id}</Text>
+                            <Text>{elem.name}</Text>
+                            <Text>->{elem.alergen_0}</Text>
+                            <Text>->{elem.alergen_1}</Text>
+                            <Text>->{elem.alergen_2}</Text>
+                        </View>
+                        )
+                    })}
+                    <Button title="zamknij" color={COLOURS.main} onPress={()=>SetVi_b(false)}/>
+                </View>
+            </Modal>    
+            <Modal visible={isVisible_c} transparent={true} animationType='slide'>
+                <View style={styles.modal}>
+                    <Text style={styles.label_dark}>Twoje alergeny</Text>
+                    {alergeny.map((elem)=> {
+                        return(
+                        <View style={styles.label_dark}>
+                            <Text>{elem.name}</Text>
+                        </View>
+                        )
+                    })}
+                    <Button title="zamknij" color={COLOURS.main} onPress={()=>SetVi_c(false)}/>
+                </View>
+            </Modal>    
             <TouchableOpacity style={styles.container} onPress={()=>SetVi(true)}>
                <Text style={styles.label}>{menu[0].title}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={()=>SetVi_b(true)}>
                <Text style={styles.label}>{menu[1].title}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={()=>SetVi_c(true)}>
                <Text style={styles.label}>{menu[2].title}</Text>
             </TouchableOpacity>
         </View>
@@ -48,6 +83,7 @@ export default function ProfileMenu(){
 
 const styles = StyleSheet.create({
     container: {
+        alignItems: 'center',
         backgroundColor: COLOURS.main,
         marginVertical: 5,
         marginHorizontal: 20,
@@ -61,6 +97,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     label_dark:{
+        padding: 10,
+        margin: 2,
         textAlign: 'center', 
         fontSize: 25,
         color: '#000000',

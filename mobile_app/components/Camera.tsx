@@ -4,8 +4,12 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import Layout from '../constants/Layout';
 import { COLOURS } from '../constants/MyColours';
 import { api } from './api/data';
+import { jedzenie } from './api/jedzenie';
+import { alergeny } from './api/alergeny';
+
 
 export default function Cam() {
+  const [uczul, SetUczul] = useState(false);
   const [timeout, SetTimeout] = useState(null);
   const [qr_a, SetA] = useState(0);
   const [qr_width, SetWidth] = useState(0);
@@ -13,11 +17,12 @@ export default function Cam() {
   const [x, SetX] = useState(0);
   const [y, SetY] = useState(0);
   const [data, SetData] = useState(null);
-  const [a, SetB] = useState(Object.values(api[0]));
+  const [a, SetB] = useState(Object.values(jedzenie[0]));
   const [barcode, setBarcode] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isVisible_b, SetVi_b] = useState(false);
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -32,10 +37,16 @@ export default function Cam() {
   //let timeout = setTimeout(function(){clear()}, 1500);
 
   const fetch_api = () => (
-    api.map((elem)=>{
+    jedzenie.map((elem)=>{
       if(elem.id == data)
       {
         SetB(Object.values(elem))
+        alergeny.map((alergen) =>{
+          if(alergen.name == elem.alergen_0 || alergen.name == elem.alergen_1 || alergen.name == elem.alergen_2)
+          {
+            SetVi_b(true);
+          }
+        })
       }
     })
   )
@@ -63,21 +74,6 @@ export default function Cam() {
     SetWidth(0)
   )
 
-    const fun = () =>{
-      if(a != null)
-      {
-        return (
-        <View>
-           <Text style={styles.text_style}>{a[0]}</Text>
-              <Text style={styles.text_style}>{a[1]}</Text>
-              <Text style={styles.text_style}>{a[2]}</Text>
-              <Text style={styles.text_style}>{a[3]}</Text>
-              <Text style={styles.text_style}>{a[4]}</Text>
-        </View>
-          )
-      }
-    }
-
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
@@ -87,6 +83,13 @@ export default function Cam() {
 
   return (
     <View style={styles.container}>
+        <Modal visible={isVisible_b} transparent={true} animationType='slide'>
+          <View style={styles.modal}>
+            <Text style={styles.label_dark}>UWAGA!</Text>
+            <Text style={styles.label_dark}>Jesteś uczulony na co najmniej jeden ze składników</Text>
+            <Button title="zamknij" color={"#000000"} onPress={()=>SetVi_b(false)}/>
+          </View>
+        </Modal>
         <BarCodeScanner
             onBarCodeScanned={(data)=>drawModal(data)}
             style={StyleSheet.absoluteFillObject}
@@ -157,5 +160,28 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     backgroundColor: 'transparent',
-  }
+  },
+  label_dark:{
+    padding: 10,
+    margin: 2,
+    textAlign: 'center', 
+    fontSize: 15,
+    color: '#FFFFFF',
+},
+modal: {
+    marginTop: 600,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10,
+    backgroundColor: "red",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
 });
