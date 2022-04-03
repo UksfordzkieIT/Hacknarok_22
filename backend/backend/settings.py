@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Hacknarok_DB_2',
+        'NAME': 'Hacknarok_DB_6',
         'USER': 'postgres',
         'PASSWORD': 'toor',
         'HOST': 'localhost',

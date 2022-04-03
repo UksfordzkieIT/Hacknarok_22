@@ -7,9 +7,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 class User(models.Model):
     nick = models.CharField(max_length=30)
     password_hash = models.CharField(max_length=30, null=True)
-    phone_number = PhoneNumberField(null=False, blank=False, unique=True)
+    phone_number = PhoneNumberField(null=False, blank=False)
     allergies = models.JSONField(null=True)
-    card_number = models.IntegerField(null=True) #12
+    card_number = models.IntegerField(null=True)  # 12
 
 
 class Heatmap(models.Model):
@@ -26,6 +26,7 @@ class Machine(models.Model):
 
 class StoreCategories(models.Model):
     name = models.CharField(max_length=30)
+    machine = models.ForeignKey(Machine, on_delete=models.SET_NULL, null=True)
 
 
 class StoreProduct(models.Model):
@@ -46,6 +47,8 @@ class FactoryProduct(models.Model):
 
 class StatStore(models.Model):
     product_count = models.IntegerField()
+    product = models.ForeignKey(StoreProduct, on_delete=models.SET_NULL, null=True)
+    machine = models.ForeignKey(Machine, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(StoreCategories, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(default=timezone.localtime)
 

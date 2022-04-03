@@ -12,7 +12,7 @@ router.register(r'store_categories', views.StoreCategoriesViewSet)
 router.register(r'factory_categories', views.FactoryCategoriesViewSet)
 router.register(r'stat_store', views.StatStoreViewSet)
 router.register(r'stat_factory', views.StatFactoryViewSet)
-router.register(r'store_shopping', views.StoreShoppingViewSet)
+# router.register(r'store_shopping', views.StoreShoppingViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
