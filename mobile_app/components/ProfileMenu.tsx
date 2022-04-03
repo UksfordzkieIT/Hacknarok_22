@@ -29,7 +29,7 @@ export default function ProfileMenu(){
                 <View style={styles.modal}>
                     <Text style={styles.label_dark}>Karta</Text>
                     <Image source={qr}/>
-                    <Button title="zamknij" onPress={()=>SetVi(false)}/>
+                    <Button title="zamknij" color={COLOURS.main} onPress={()=>SetVi(false)}/>
                 </View>
             </Modal>
                 
