@@ -1,5 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { EventBusService } from '../../../services/event-bus.service';
+import { Subscription } from 'rxjs';
 
 export interface CustomDateRange {
   dateStart: Date;
@@ -15,6 +24,7 @@ export interface CustomDateRange {
 })
 export class DateRangeComponent implements OnInit {
   @Output() dateRangeEvent = new EventEmitter<CustomDateRange>();
+  @HostBinding('class') className = '';
 
   range = new FormGroup({
     start: new FormControl(new Date()),
@@ -24,6 +34,17 @@ export class DateRangeComponent implements OnInit {
   });
   hourStartInvalid = false;
   hourEndInvalid = false;
+  themeModeSubscription: Subscription;
+  theme = 'light';
+
+  constructor(
+    private eventBus: EventBusService,
+    private overlay: OverlayContainer
+  ) {
+    this.themeModeSubscription = eventBus.modeSubject$.subscribe((val) =>
+      this.changeThemeMode(val)
+    );
+  }
 
   ngOnInit(): void {
     this.range.controls['hourStart'].valueChanges.subscribe((val) => {
@@ -49,5 +70,15 @@ export class DateRangeComponent implements OnInit {
       hourEnd: this.range.controls['hourEnd'].value,
     };
     this.dateRangeEvent.next(dateRange);
+  }
+
+  changeThemeMode(val: 'light' | 'dark'): void {
+    this.theme = val;
+    this.className = val === 'dark' ? 'dark-theme' : '';
+    if (val === 'dark') {
+      this.overlay.getContainerElement().classList.add('dark-theme');
+    } else {
+      this.overlay.getContainerElement().classList.remove('dark-theme');
+    }
   }
 }

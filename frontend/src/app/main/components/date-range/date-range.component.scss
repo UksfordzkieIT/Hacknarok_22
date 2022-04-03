@@ -16,8 +16,16 @@
   }
 }
 
+.text--dark {
+  color: white;
+}
+
 .done-icon {
   color: green;
+}
+
+.done-icon--dark {
+  color: lightgreen;
 }
 
 ::ng-deep {
@@ -27,9 +35,7 @@
   .mat-form-field-underline {
     visibility: hidden !important;
   }
-  .mat-form-field-flex {
-    background-color: white !important;
-  }
+
   .mat-form-field-suffix {
     display: flex !important;
     flex-direction: column !important;

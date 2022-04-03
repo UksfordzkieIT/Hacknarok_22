@@ -1,22 +1,22 @@
 <mat-form-field appearance="fill" [formGroup]="range">
   <mat-label>Zakres dat</mat-label>
   <mat-date-range-input [rangePicker]="rangePicker">
-    <input matStartDate placeholder="Początkowa" formControlName="start">
-    <input matEndDate placeholder="Końcowa" formControlName="end">
+    <input [ngClass]="{'text--dark': theme === 'dark'}" matStartDate placeholder="Początkowa" formControlName="start">
+    <input [ngClass]="{'text--dark': theme === 'dark'}" matEndDate placeholder="Końcowa" formControlName="end">
   </mat-date-range-input>
   <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
   <button *ngIf="!hourStartInvalid && !hourEndInvalid" (click)="confirm()" mat-icon-button matSuffix aria-label="Accept changes">
-    <mat-icon class="done-icon">done</mat-icon>
+    <mat-icon [ngClass]="{'done-icon--dark': theme ==='dark', 'done-icon': theme !== 'dark'}">done</mat-icon>
   </button>
   <mat-date-range-picker #rangePicker></mat-date-range-picker>
   <div class="hours-form-part">
     <span *ngIf="hourStartInvalid" class="hours-form-part__error">Nieprawidłowa wartość</span>
     <div class="hours-form-part__bar">
-      <label for="hourFrom">od:</label><br>
+      <label [ngClass]="{'text--dark': theme === 'dark'}" for="hourFrom">od:</label><br>
       <input (click)="prevent($event)" type="number" id="hourFrom" min="0" max="24" formControlName="hourStart">
     </div>
     <span *ngIf="hourEndInvalid" class="hours-form-part__error">Nieprawidłowa wartość</span>
-    <div class="hours-form-part__bar">
+    <div [ngClass]="{'text--dark': theme === 'dark'}" class="hours-form-part__bar">
       <label for="hourTo">do:</label><br>
       <input (click)="prevent($event)" type="number" id="hourTo" min="0" max="24" formControlName="hourEnd">
     </div>
