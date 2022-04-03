@@ -21,7 +21,10 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{currentPath}}</span>
+      <span class="toolbar__title">
+        <mat-icon>{{getIconByRoute()}}</mat-icon>
+        {{currentPath}}
+      </span>
       <app-dark-mode-toggle></app-dark-mode-toggle>
     </mat-toolbar>
     <router-outlet></router-outlet>
