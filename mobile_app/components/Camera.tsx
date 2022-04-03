@@ -4,7 +4,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import Layout from '../constants/Layout';
 
 
-export default function App() {
+export default function Cam() {
 
   const response = 
   [
