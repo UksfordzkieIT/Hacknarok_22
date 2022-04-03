@@ -62,18 +62,14 @@ def get_day_stats_summary(
         StatFactory.objects.values("category")
             .annotate(count=Sum("product_count"))
             .filter(
-            machine=id_, date__gte=period_begin, date__lte=period_end
+            date__gte=period_begin, date__lte=period_end
         )
-            .exclude(machine=None)
     )
     return {s["category"]: s["count"] for s in stats}
 
 
 def get_classes_dict(d_id=None):
-    if d_id is not None:
-        classes_ = list(FactoryCategories.objects.filter(machine=d_id).order_by("id"))
-    else:
-        classes_ = list(FactoryCategories.objects.all().order_by("id"))
+    classes_ = list(FactoryCategories.objects.all().order_by("id"))
 
     classes = {}
     for c in classes_:

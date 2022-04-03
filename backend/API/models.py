@@ -26,7 +26,6 @@ class Machine(models.Model):
 
 class StoreCategories(models.Model):
     name = models.CharField(max_length=30)
-    machine = models.ForeignKey(Machine, on_delete=models.SET_NULL, null=True)
 
 
 class StoreProduct(models.Model):
@@ -48,7 +47,6 @@ class FactoryProduct(models.Model):
 class StatStore(models.Model):
     product_count = models.IntegerField()
     product = models.ForeignKey(StoreProduct, on_delete=models.SET_NULL, null=True)
-    machine = models.ForeignKey(Machine, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(StoreCategories, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(default=timezone.localtime)
 

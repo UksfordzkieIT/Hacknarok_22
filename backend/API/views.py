@@ -2,12 +2,12 @@ from datetime import datetime
 
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 # import API.chart_data_store
 # import API.chart_data_factory
 
-from . import data_generator
+from . import data_generator, chart_data_store, chart_data_factory
 from .serializers import HeatmapSerializer, UserSerializer, StoreProductSerializer, FactoryProductSerializer, \
     MachineSerializer, StoreCategoriesSerializer, FactoryCategoriesSerializer, StatStoreSerializer, \
     StatFactorySerializer, StoreShoppingSerializer
@@ -17,30 +17,9 @@ from .models import User, Heatmap, Machine, FactoryProduct, StoreProduct, StoreC
 import json
 
 
-# class PersonViewSet(viewsets.ModelViewSet):
-#     queryset = Person.objects.all().order_by('first_name')
-#     serializer_class = PersonSerializer
-#
-#     @action(
-#         methods=["get"],
-#         detail=True,
-#         url_path="first_name",
-#         url_name="first-name",
-#     )
-#     def get_first_name(self, request, pk):
-#         person = Person.objects.get(id=pk)
-#         return JsonResponse(
-#             {
-#                 "first_name": person.first_name
-#             },
-#         )
-
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    # data_generator.build_it()
 
     @action(
         methods=["get"],
@@ -49,6 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
         url_name="get-user",
     )
     def get_user(self, request, pk):
+        # data_generator.build_it()
         user = User.objects.get(nick=pk)
         return JsonResponse(
             {
@@ -146,7 +126,7 @@ class StatStoreViewSet(viewsets.ModelViewSet):
         url_path="get_stat_timeline_store",
         url_name="get-stat-timeline-store",
     )
-    def get_store_data(self, request, pk):
+    def get_store_timeline_data(self, request, pk, _range=None):
         # store_stats = StatStore.objects.get(id=pk)
 
         _range = self.request.query_params.get("params", None)
@@ -155,7 +135,7 @@ class StatStoreViewSet(viewsets.ModelViewSet):
 
         data = chart_data_store.create_timeline(period_begin, period_end, pk)
 
-        return data
+        return HttpResponse(data, content_type='application/json')
 
     @action(
         methods=["get"],
@@ -163,7 +143,7 @@ class StatStoreViewSet(viewsets.ModelViewSet):
         url_path="get_stat_summary_store",
         url_name="get-stat-summary-store",
     )
-    def get_store_data(self, request, pk):
+    def get_store_summary_data(self, request, pk):
         # store_stats = StatStore.objects.get(id=pk)
 
         _range = self.request.query_params.get("params", None)
@@ -172,7 +152,7 @@ class StatStoreViewSet(viewsets.ModelViewSet):
 
         data = chart_data_store.create_summary(period_begin, period_end, pk)
 
-        return data
+        return HttpResponse(data, content_type='application/json')
 
 
 class StatFactoryViewSet(viewsets.ModelViewSet):
@@ -186,7 +166,7 @@ class StatFactoryViewSet(viewsets.ModelViewSet):
         url_path="get_stat_timeline_factory",
         url_name="get-stat-timeline-factory",
     )
-    def get_factory_data(self, request, pk):
+    def get_factory_timeline_data(self, request, pk):
         # store_stats = StatStore.objects.get(id=pk)
 
         _range = self.request.query_params.get("params", None)
@@ -195,7 +175,7 @@ class StatFactoryViewSet(viewsets.ModelViewSet):
 
         data = chart_data_factory.create_timeline(period_begin, period_end, pk)
 
-        return data
+        return HttpResponse(data, content_type='application/json')
 
 
     @action(
@@ -204,7 +184,7 @@ class StatFactoryViewSet(viewsets.ModelViewSet):
         url_path="get_stat_summary_factory",
         url_name="get-stat-summary-factory",
     )
-    def get_factory_data(self, request, pk):
+    def get_factory_summary_data(self, request, pk):
         # store_stats = StatStore.objects.get(id=pk)
 
         _range = self.request.query_params.get("params", None)
@@ -213,7 +193,7 @@ class StatFactoryViewSet(viewsets.ModelViewSet):
 
         data = chart_data_factory.create_summary(period_begin, period_end, pk)
 
-        return data
+        return HttpResponse(data, content_type='application/json')
 
 
 # class StoreShoppingViewSet(viewsets.ModelViewSet):
