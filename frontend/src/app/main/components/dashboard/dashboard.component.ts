@@ -4,6 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { EventBusService } from '../../../services/event-bus.service';
 import { Subscription } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { CustomDateRange } from '../date-range/date-range.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,4 +55,8 @@ export class DashboardComponent {
       ];
     })
   );
+
+  mock(e: CustomDateRange): void {
+    console.log(e);
+  }
 }

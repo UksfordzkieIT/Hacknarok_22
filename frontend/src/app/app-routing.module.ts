@@ -18,6 +18,7 @@ const routes: Routes = [
       {
         path: 'fabryka',
         component: DashboardComponent,
+        children: [],
       },
       {
         path: 'sklep',

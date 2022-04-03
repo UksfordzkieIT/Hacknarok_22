@@ -21,6 +21,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ExampleHeatmapComponent } from './main/components/example-heatmap/example-heatmap.component';
+import { DateRangeComponent } from './main/components/date-range/date-range.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const CDK_MODULES = [LayoutModule];
 
@@ -35,6 +39,8 @@ const MATERIAL_MODULES = [
   MatCardModule,
   MatMenuModule,
   MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({
@@ -45,6 +51,8 @@ const MATERIAL_MODULES = [
     ExampleChartComponent,
     DarkModeToggleComponent,
     LoginComponent,
+    ExampleHeatmapComponent,
+    DateRangeComponent,
   ],
   imports: [
     BrowserModule,
