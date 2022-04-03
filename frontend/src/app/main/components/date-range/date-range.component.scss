@@ -1,0 +1,43 @@
+.hours-form-part {
+  padding-top: 20px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+
+  .hours-form-part__bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .hours-form-part__error {
+    color: red;
+    font-size: x-small;
+  }
+}
+
+.text--dark {
+  color: white;
+}
+
+.done-icon {
+  color: green;
+}
+
+.done-icon--dark {
+  color: lightgreen;
+}
+
+::ng-deep {
+  .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+  .mat-form-field-underline {
+    visibility: hidden !important;
+  }
+
+  .mat-form-field-suffix {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
