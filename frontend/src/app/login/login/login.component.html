@@ -1,0 +1,16 @@
+<div class="background">
+  <div class="panel">
+      <h1>Logowanie</h1>
+      <img src="assets/img/logo.png" alt="image" width="100">
+      <form (submit)="onSubmit($event)">
+        <label for="login">Login:</label><br>
+        <input class="panel__form" type="text" id="login" name="login" [formControl]="login"><br>
+        <label for="password">Hasło:</label><br>
+        <input class="panel__form" type="password" id="password" name="password" [formControl]="password">
+        <p class="panel__error" *ngIf="invalid">Dane do logowania są niepoprawne!</p>
+        <div>
+          <button [disabled]="shouldBeDisabled()" class="panel__button" mat-flat-button color="primary" type="submit">Zaloguj</button>
+        </div>
+      </form>
+  </div>
+</div>

@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Chart } from 'chart.js';
-import { EventBusService } from '../../services/event-bus.service';
+import { EventBusService } from '../../../services/event-bus.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { EventBusService } from '../../services/event-bus.service';
+import { EventBusService } from '../../../services/event-bus.service';
 import { Subscription } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 

@@ -1,0 +1,34 @@
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  background-color: #444444;
+}
+
+.panel {
+  width: 300px;
+  max-height: inherit;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  margin:10px;
+
+  .panel__error {
+    color: red;
+    font-size: x-small;
+    margin: 0;
+  }
+
+  .panel__form {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3px;
+    height: 20px;
+  }
+
+  .panel__button {
+    margin: 4px 0;
+  }
+}

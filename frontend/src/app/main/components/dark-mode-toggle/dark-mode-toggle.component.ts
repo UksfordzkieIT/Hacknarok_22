@@ -1,5 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
-import { EventBusService } from '../../services/event-bus.service';
+import { EventBusService } from '../../../services/event-bus.service';
 
 @Component({
   selector: 'app-dark-mode-toggle',
