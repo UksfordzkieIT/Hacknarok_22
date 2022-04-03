@@ -2,19 +2,30 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
+  OnChanges,
   OnDestroy,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Chart } from 'chart.js';
 import { EventBusService } from '../../../services/event-bus.service';
 import { Subscription } from 'rxjs';
+import { CustomDateRange } from '../date-range/date-range.component';
+import { StoreService } from '../../../services/store.service';
+import { map } from 'rxjs/operators';
+import statStoreToChartData from '../../../converters/stat-store-data-to-chart-data';
 
 @Component({
   selector: 'app-example-chart',
   templateUrl: './example-chart.component.html',
   styleUrls: ['./example-chart.component.scss'],
 })
-export class ExampleChartComponent implements AfterViewInit, OnDestroy {
+export class ExampleChartComponent
+  implements OnChanges, AfterViewInit, OnDestroy
+{
+  @Input('for') for!: 'fabryka' | 'sklep';
+  @Input('dateRange') dateRange!: CustomDateRange;
   @ViewChild('testChartCanvas') testChartCanvas!: ElementRef<HTMLCanvasElement>;
   themeModeChangedSubscription!: Subscription;
   canvasContext?: CanvasRenderingContext2D;
@@ -38,26 +49,22 @@ export class ExampleChartComponent implements AfterViewInit, OnDestroy {
   CHART_CONFIG = {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Alkohol', 'Nabial', 'Slodycze', 'Napoje'],
       datasets: [
         {
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Dane',
+          data: [123, 129, 233, 125],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
           ],
           borderWidth: 1,
         },
@@ -83,10 +90,30 @@ export class ExampleChartComponent implements AfterViewInit, OnDestroy {
     plugins: [],
   };
 
-  constructor(public eventBus: EventBusService) {
+  constructor(
+    public eventBus: EventBusService,
+    private storeService: StoreService
+  ) {
     this.themeModeChangedSubscription = eventBus.modeSubject$.subscribe((val) =>
       this.themeModeChange(val)
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dateRange']) {
+      this.storeService
+        .getDataForChart(this.dateRange)
+        .pipe(map((val) => statStoreToChartData(val)))
+        .subscribe((val) => {
+          // @ts-ignore
+          this.CHART_CONFIG.data = val['data'];
+          // @ts-ignore
+          this.CHART_CONFIG.type = val['type'];
+          this.chartInstance?.destroy();
+          // @ts-ignore
+          this.chartInstance = new Chart(this.canvasContext, this.CHART_CONFIG);
+        });
+    }
   }
 
   ngAfterViewInit(): void {

@@ -3,13 +3,7 @@ import { filter, Observable, Subscription } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { EventBusService } from '../services/event-bus.service';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  NavigationEnd,
-  Route,
-  Router,
-} from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -36,6 +30,17 @@ export class MainComponent {
         const value = val as NavigationEnd;
         this.currentPath = value.urlAfterRedirects.split('/')[2].toUpperCase();
       });
+  }
+
+  readonly ROUTE_TO_ICON_MAP = {
+    fabryka: 'work_icon',
+    sklep: 'shopping_basket',
+  };
+
+  getIconByRoute(): string {
+    return this.ROUTE_TO_ICON_MAP[
+      this.currentPath.toLowerCase() as 'fabryka' | 'sklep'
+    ];
   }
 
   themeModeChanged(val: 'light' | 'dark'): void {

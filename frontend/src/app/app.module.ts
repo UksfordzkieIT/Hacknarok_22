@@ -25,6 +25,7 @@ import { ExampleHeatmapComponent } from './main/components/example-heatmap/examp
 import { DateRangeComponent } from './main/components/date-range/date-range.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
 
 const CDK_MODULES = [LayoutModule];
 
@@ -59,6 +60,7 @@ const MATERIAL_MODULES = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     ...CDK_MODULES,
     ...MATERIAL_MODULES,
   ],
