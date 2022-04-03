@@ -7,6 +7,7 @@ export default function statStoreToChartData(
     return {
       data: data.values[index],
       label: data.classes[index],
+      borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
       fill: false,
     };
   });

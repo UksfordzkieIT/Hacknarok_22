@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomDateRange } from '../date-range/date-range.component';
 import { Router } from '@angular/router';
+import { DateRange } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,12 @@ export class DashboardComponent {
 
   themeModeSubscription: Subscription;
   dashboardType!: 'fabryka' | 'sklep';
+  dateRange: CustomDateRange = {
+    dateStart: new Date(),
+    dateEnd: new Date(),
+    hourStart: 0,
+    hourEnd: 0,
+  };
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -44,6 +51,7 @@ export class DashboardComponent {
       if (this.dashboardType === 'fabryka') {
         return [
           { title: 'Wykres', cols: matches ? 2 : 1, rows: 1, type: 'chart' },
+          { title: 'Wykres 2', cols: matches ? 2 : 1, rows: 1, type: 'chart' },
         ];
       }
       if (this.dashboardType === 'sklep') {
@@ -56,7 +64,7 @@ export class DashboardComponent {
     })
   );
 
-  mock(e: CustomDateRange): void {
-    console.log(e);
+  setDateRange(e: CustomDateRange): void {
+    this.dateRange = e;
   }
 }
