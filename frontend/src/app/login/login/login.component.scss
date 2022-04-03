@@ -15,6 +15,11 @@
   border-radius: 5px;
   margin:10px;
 
+  .panel__title {
+    font-weight: 500;
+    margin-top: 16px;
+  }
+
   .panel__error {
     color: red;
     font-size: x-small;
@@ -29,6 +34,6 @@
   }
 
   .panel__button {
-    margin: 4px 0;
+    margin: 16px 0;
   }
 }
