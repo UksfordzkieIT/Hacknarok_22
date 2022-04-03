@@ -1,0 +1,26 @@
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <ng-container *ngIf="card.type === 'chart'">
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <app-date-range (dateRangeEvent)="setDateRange($event)"></app-date-range>
+              </mat-menu>
+            </ng-container>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-example-heatmap *ngIf="card.type === 'heatmap'"></app-example-heatmap>
+          <app-example-chart [for]="dashboardType" [dateRange]="dateRange" *ngIf="card.type === 'chart'"></app-example-chart>
+          <app-example-chart [for]="dashboardType" *ngIf="card.type === 'chart2'"></app-example-chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
